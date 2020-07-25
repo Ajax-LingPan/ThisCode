@@ -6,7 +6,7 @@ $(function () {
     // 登录跳转更新用户的信息
     $.ajax({
         type: 'get',
-        url: 'http://localhost:8080/api/v1/admin/user/info',
+        url: BigNew.user_info,
         success: function (res) {
             if (res.code == 200) {
                 $('.user_info span').html(`欢迎&nbsp;&nbsp;${res.data.nickname}`);
