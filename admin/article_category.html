@@ -10,13 +10,17 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
+    <!-- 引入http地址js文件 -->
+    <script src="./js/http.js"></script>
     <script src="./libs/jquery-1.12.4.min.js"></script>
     <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
     <!-- 引入模板引擎js文件 -->
     <script src="./libs/template-web.js"></script>
+
 </head>
 
 <body>
+    <!-- 表单盒子 -->
     <div class="container-fluid">
         <div class="common_title">
             文章类别管理
@@ -31,25 +35,110 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>奇趣事</td>
-                        <td>funny</td>
-                        <td class="text-center">
-                            <a href="javascript:void(0)" data-toggle="modal" class=" btn btn-info btn-xs">编辑</a>
-                            <a href="javascript:void(0)" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
+                    <!-- 使用模板引起添加数据 -->
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-center">
-                            <a href="javascript:void(0)" class="btn btn-success" id="xinzengfenlei" data-toggle="modal"
-                                data-target="#myModal">新增分类</a>
+                            <button class="btn btn-success" id="xinzengfenlei" data-toggle="modal"
+                                data-target="#myModal">新增分类</button>
                         </td>
                     </tr>
                 </tfoot>
             </table>
         </div>
     </div>
+    <!-- 模态框引入 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">新增分类信息</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- 引入表单 -->
+                    <form class="form-horizontal" id="myForm">
+                        <!-- 隐藏域 -->
+                        <div class="form-group hidden">
+                            <label>文章分类名称</label>
+                            <input type="hidden" name="id" class="id" id="exampleInputEmail1" placeholder="id" >
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <p>文章分类</p>
+                                <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <p>文章别名</p>
+                                <input type="text" name="slug" class="form-control" id="inputPassword3"
+                                    placeholder="Slug">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Sign in</button>
+                            </div>
+                        </div> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary btn_sure">确定</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- 删除按钮的模态框 -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="delModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">这是一个悲伤的故事...哈哈哈</h4>
+                </div>
+                <div class="modal-body">
+                    <p>小珍珍,不要去打工好不好?;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">你养我啊?</button>
+                    <button type="button" class="btn btn-primary" id="shanchu">我养你啊!</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script src="./js/article_category.js"></script>
+    <!-- 创建模板要注意写上属性 顺便给个id -->
+    <script type="text/html" id="tmp">
+        {{each data v i}}
+        <tr>
+            <td>{{v.name}}</td>
+            <td>{{v.slug}}</td>
+            <td class="text-center">
+                <button data-id={{v.id}} data-target="#myModal" data-toggle="modal"
+                    class=" btn btn-info btn-xs bianji">编辑</button>
+                <button data-id={{v.id}} class="btn btn-danger btn-xs btn_del" data-toggle="modal"
+                    data-target="#delModal">删除</button>
+            </td>
+        </tr>
+
+        {{/each}}
+    </script>
+
+</body>
 
 </html>
