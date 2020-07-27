@@ -27,13 +27,14 @@ $(function () {
     // })
 
     //  模态框显示操作
-    $('#myModal').on('shown.bs.modal', function () {
+    $('#myModal').on('shown.bs.modal', function () { //当模态框显示后触发事件
+        // 替换h4的内容
         $('#myModal h4').text('新增分类信息')
     })
 
     //  给表单确认按钮添加新增功能并重新渲染页面
     $('.btn_sure').on('click', function () {
-        var id = $('#exampleInputEmail1').val();
+        var id = $('#myForm input[name=id]').val(); //讲隐藏域的id 提取出来
         console.log(id);
         $.ajax({
             type: 'post',
