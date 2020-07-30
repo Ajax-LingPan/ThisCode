@@ -97,15 +97,18 @@
                     <h4 class="modal-title">温馨提示...</h4>
                 </div>
                 <div class="modal-body">
-                    <p>这就删除我了???</p>
+                    <p>这就把我删了???</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary btn-sure">确定</button>
+                    <button type="button" class="btn btn-primary btn-sure" data-toggle="modal"
+                        data-target="#button" id="del">确定</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+
     <!-- 引入模板引擎js文件 -->
     <script type="text/html" id="mmp">
         <option value="">所有分类</option>
@@ -125,8 +128,8 @@
             <td class="text-center">{{v.state}}</td>
             <td class="text-center">
                 <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
-                <a href="javascript:void(0);" class="btn btn-danger btn-xs delete" data-toggle="modal"
-                    data-target="#delModal">删除</a>
+                <button data-id='{{v.id}}' class="btn btn-danger btn-xs delete" data-toggle="modal"
+                    data-target="#delModal">删除</button>
             </td>
         </tr>
         {{/each}}
