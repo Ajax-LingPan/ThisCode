@@ -58,11 +58,12 @@ $(function () {
                 if (res.code == 200) {
                     $.ajax({
                         type: 'get',
-                        url: BigNew.user_info,
+                        url: BigNew.user_info,  //用户信息接口
                         data: data,
                         contentType: false, // 不要进行其它编码 不需要额外编码就是二进制
                         processData: false,
                         success: function (res) {
+                            // 从用户接口获取来的数据,加上parent/设置为主页面修改
                             parent.$('.user_info span ').text(res.data.nickname);
                             parent.$('.user_info img').attr('src', res.data.userPic);
                             parent.$('.user_center_link img').attr('src', res.data.userPic);
