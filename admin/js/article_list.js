@@ -1,6 +1,8 @@
 // 文章列表页
 // 跳转到页面立马发送ajax请求
 $(function () {
+
+    // $$$ 这个页面留了一个分页器的bug
     // 所有分类
     $.ajax({
         type: 'get',
@@ -18,8 +20,8 @@ $(function () {
         type: 'get',
         url: BigNew.article_query,
         // data: {
-        //     pages: 'totalPage',
-        //     page: 6,
+        // pages: 'totalPage',
+        // page: 6,
         // },
         success: function (res) {
             // console.log(res);
@@ -60,7 +62,7 @@ $(function () {
                         // console.log(res);
 
                         if (res.code == 200) {
-                            //    重新渲染页面
+                            // 重新渲染页面
                             var htmlStr = template('hmp', res.data) //因为data是data对象里的数组
                             $('#mytbody').html(htmlStr);
                         }
@@ -70,16 +72,16 @@ $(function () {
         })
     }
     // 筛选功能
-    $('#btnSearch').on('click', function () { //给筛选按钮设置 type="button"  也能阻止表单默认提交行为
+    $('#btnSearch').on('click', function () { //给筛选按钮设置 type="button" 也能阻止表单默认提交行为
         // console.log(11);
         // e.preventDefault();
         $.ajax({
             type: 'get',
             url: BigNew.article_query,
             data: {
-                key: $('#my_form  input[name=key]').val(), // 关键词
-                type: $('#my_form  select[name=type]').val(), // 分类
-                state: $('#my_form sclect[name=state]').val(), // 文章状态
+                key: $('#my_form input[name=key]').val(), // 关键词
+                type: $('#my_form select[name=type]').val(), // 分类
+                state: $('#my_form select[name=state]').val(), // 文章状态
                 page: 1, //第几行显示
                 perpage: 6, //显示几行
             },
@@ -99,8 +101,6 @@ $(function () {
     })
     // 如果筛选的分类中没有数据的话，则应该不显示分页控件，而应该显示无数据，否则，会报错的，因此在
 
-    // article_list.html页面中的分页位置加一个标签，来提示有无数据
-
     // 4. 实现筛选功能
     // 4.1 给form表单注册事件submit事件
     $('#btnSearch').on('click', function () {
@@ -111,8 +111,8 @@ $(function () {
             type: 'get',
             url: BigNew.article_query,
             data: {
-                key: $('#my_form  input[name=key]').val(), // 关键词
-                type: $('#my_form  select[name=type]').val(), // 分类
+                key: $('#my_form input[name=key]').val(), // 关键词
+                type: $('#my_form select[name=type]').val(), // 分类
                 state: $('#my_form sclect[name=state]').val(), // 文章状态
                 page: 1, //第几行显示
                 // perpage: 6, //显示几行
@@ -146,7 +146,7 @@ $(function () {
     })
     // 删除设置
 
-    //  获取要删除的文章的id
+    // 获取要删除的文章的id
     $('#delModal').on('shown.bs.modal', function (e) {
         window.delId = $(e.relatedTarget).data("id")
         // console.log(window.id);
@@ -189,7 +189,7 @@ $(function () {
                             $('#mytbody').html(htmlStr)
                             // 判断特殊情况
                             if (res.data.totalPage == 0) {
-                                $('#pagination-demo').hide().next().show() //如果如果页数等于0 那就让分页器隐藏 然  无数据 显示出来
+                                $('#pagination-demo').hide().next().show() //如果如果页数等于0 那就让分页器隐藏 然 无数据 显示出来
                             }
                             if (res.data.data.length == 0) { //如果data的数组长度为0的话 那就让页数从1开始显示
                                 currentPage -= 1;
@@ -202,5 +202,9 @@ $(function () {
         })
     })
 
+    // 给发表文章注册事件,同时高亮
+    $('#release_btn').on('click', function () {
+        parent.$('.level02 li:eq(1)').click() //要加上parent 表示全局效应
+    })
 
 })
